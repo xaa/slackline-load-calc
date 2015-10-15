@@ -4,56 +4,27 @@
 <head>
     <title>Slackline Load Calculator</title>
 
-    <style type="text/css">
-        * {
-            font-family: helvetica, arial, sans-serif;
-            font-size: 15px;
-        }
-        body {
-        }
-        .form-body {
-            float: left;
-            background: #eee;
-            padding: 15px;
-            border-top: 2px solid #f33;
-            border-bottom: 2px solid #000;
-            clear: left;
-            margin-bottom: 20px;
-        }
-        .form-body.results {
-            border-top: 2px solid #800080;
-        }
-        label, dt {
-            padding: 5px;
-            float: left;
-            clear: left;
-            width: 220px;
-        }
-        input, dd {
-            padding: 5px;
-            float: left;
-            width: 75px;
-            margin: 2px;
-        }
-        dd {
-            background: #ddd;
-            border: 1px solid #ccc;
-            width: 63px;
-        }
-        button {
-            float: left;
-            clear: left;
-            margin-left: 210px;
-        }
-        p {
-            font-style: italic;
-            font-size: 13px;
-            float: left;
-            margin: 10px 0 0 15px ;
-            color: #666;
-        }
-    
+ <style type="text/css">
+  * {
+   font-family: helvetica, arial, sans-serif;
+   font-size: 15px;
+ }
+ body {
+ }
+ .container {
+ background:#EEE;
+ }  
     </style>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
     <script type="text/javascript">
         // when the page loads, we'll setup our calculator
         window.onload = function() { setupCalc(); }
@@ -141,22 +112,62 @@
 <body>
 
 <h1>Slackline Load Calculator</h1>
+<div class="container">
+<div class="container-wrapper">
+<form class="form-horizontal">
+  <div class="form-group">
+      <label for="line_length" class="col-sm-2 control-label">Length</label>
+      <div class="col-sm-10">
+       <input type="text" name="line_length" id="line_length" value="100" data-cip-id="line_length">
+       <p class="help-block">Length of your slack/long/highline, either meters or feet</p>
+    </div>
+  </div>
+  <div class="form-group">  
+      <label for="sag" class="col-sm-2 control-label">Sag</label> 
+      <div class="col-sm-10">
+      <input type="text" name="sag" id="sag" value="2" data-cip-id="sag">
+      <p class="help-block">Total height of drop in middle of slackline with slacker, same units as above</p>
+  </div>
+  </div>
+  <div class="form-group">    
+      <label for="slacker_weight" class="col-sm-2 control-label">Slacker Weight</label>
+      <div class="col-sm-10">
+      <input type="text" name="slacker_weight" id="slacker_weight" value="80" data-cip-id="slacker_weight">
+      <p class="help-block">Weight of slacker, either lbs or kg (both work)</p>
+  </div>
+  </div>
+  <div class="form-group">    
+      <label for="pulley_sheaves" class="col-sm-2 control-label"># of Pulley Sheaves</label> 
+      <div class="col-sm-10">
+      <input type="text" name="pulley_sheaves" id="pulley_sheaves" value="0" data-cip-id="pulley_sheaves">
+      <p class="help-block">For use with rope multiplier system</p>
+  </div>
+  </div>
+  <div class="form-group">        
+      <label for="pulley_efficiency" class="col-sm-2 control-label">Estimated Pulley Efficiency</label>
+      <div class="col-sm-10">
+      <input type="text" name="pulley_efficiency" id="pulley_efficiency" value="95" data-cip-id="pulley_efficiency">
+    <p class="help-block">Estimated:  3" ball bearing=95%, 1.5" bushing=75%</p>
+  </div>
+</div>
+  <div class="form-group">        
+      <label for="brake_efficiency" class="col-sm-2 control-label">Estimated Brake Efficiency</label> 
+      <div class="col-sm-10">
+      <input type="text" name="brake_efficiency" id="brake_efficiency" value="70" data-cip-id="brake_efficiency">
+      <p class="help-block">>I'D, GriGri, Eddy or whatever.  Should be ~60-75%      MPD=~95%</p>
+  </div>
+  </div>
+  <div class="form-group">
+    <label for="line_stretch" class="col-sm-2 control-label">Line Stretch at Tension</label>
+    <div class="col-sm-10">
+     <input type="text" name="line_stretch" id="line_stretch" value="12" data-cip-id="line_stretch">
+     <p class="help-block">Should be 4-25%, unless using Spider Silk</p>
+    <div>
 
-<div class="form-body">
-    <label for="line_length">Length</label> <input type="text" name="line_length" id="line_length" value="100">
-    <p>Length of your slack/long/highline, either meters or feet</p>
-    <label for="sag">Sag</label> <input type="text" name="sag" id="sag" value="2" />
-    <p>Total height of drop in middle of slackline with slacker, same units as above</p>
-    <label for="slacker_weight">Slacker Weight</label> <input type="text" name="slacker_weight" id="slacker_weight" value="80">
-    <p>Weight of slacker, either lbs or kg (both work)</p>
-    <label for="pulley_sheaves"># of Pulley Sheaves</label> <input type="text" name="pulley_sheaves" id="pulley_sheaves" value="0">
-    <p>For use with rope multiplier system</p>
-    <label for="pulley_efficiency">Estimated Pulley Efficiency</label> <input type="text" name="pulley_efficiency" id="pulley_efficiency" value="95">
-    <p>Estimated:  3" ball bearing=95%, 1.5" bushing=75%</p>
-    <label for="brake_efficiency">Estimated Brake Efficiency</label> <input type="text" name="brake_efficiency" id="brake_efficiency" value="70">
-    <p>I'D, GriGri, Eddy or whatever.  Should be ~60-75%      MPD=~95%</p>
-    <label for="line_stretch">Line Stretch at Tension</label> <input type="text" name="line_stretch" id="line_stretch" value="12">
-    <p>Should be 4-25%, unless using Spider Silk</p>
+ </div>  
+
+</form>
+</div>
 </div>
 
 <div class="form-body results">
