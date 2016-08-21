@@ -1,29 +1,38 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Slackline Load Calculator</title>
+        <style type="text/css">
+            * {
+                font-family: helvetica, arial, sans-serif;
+                font-size: 15px;
+            }
+            h1{
+              font-size:2.5rem;
+              text-align:center;
+            }
+            h1 sup {
+              background:#FFBE00;
+              padding:1px 5px;
+              font-size:14px;
+            }
+        </style>
+        <!-- call bootstrap css -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"><!-- Optional theme -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-<head>
-    <title>Slackline Load Calculator</title>
-
- <style type="text/css">
-  * {
-   font-family: helvetica, arial, sans-serif;
-   font-size: 15px;
- }
- body {
- }
- .container {
- background:#EEE;
- }  
-    </style>
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+             $('[data-toggle="tooltip"]').tooltip({
+             placement : 'top'
+             });
+            });
+         </script>
 
     <script type="text/javascript">
         // when the page loads, we'll setup our calculator
@@ -35,36 +44,34 @@
             for (var x = 0; x < inputs.length; x++) {
                 inputs[x].onchange = processForm;
             }
-
             // generate some initial results
             processForm();
-
         }
 
         function processForm() {
             // let's grab all our form fields and result fields
-            var line_length = parseFloat(document.getElementById('line_length').value);
-            var sag = parseFloat(document.getElementById('sag').value);
-            var slacker_weight = parseFloat(document.getElementById('slacker_weight').value);
-            var pulley_sheaves = parseFloat(document.getElementById('pulley_sheaves').value);
+            var line_length             = parseFloat(document.getElementById('line_length').value);
+            var sag                     = parseFloat(document.getElementById('sag').value);
+            var slacker_weight          = parseFloat(document.getElementById('slacker_weight').value);
+            var pulley_sheaves          = parseFloat(document.getElementById('pulley_sheaves').value);
             // divide the next three values by 100 to convert integer percentages to decimal percentages (ex: 75 to .75)
-            var pulley_efficiency = parseFloat(document.getElementById('pulley_efficiency').value / 100);
-            var brake_efficiency = parseFloat(document.getElementById('brake_efficiency').value / 100);
-            var line_stretch = parseFloat(document.getElementById('line_stretch').value / 100);
+            var pulley_efficiency       = parseFloat(document.getElementById('pulley_efficiency').value / 100);
+            var brake_efficiency        = parseFloat(document.getElementById('brake_efficiency').value / 100);
+            var line_stretch            = parseFloat(document.getElementById('line_stretch').value / 100);
             
-            var line_tension = document.getElementById('line_tension');
-            var line_stretch_percent = document.getElementById('line_stretch_percent');
-            var line_stretch_length = document.getElementById('line_stretch_length');
-            var mech_adv_eff = document.getElementById('mech_adv_eff');
-            var theoretical_ma = document.getElementById('theoretical_ma');
-            var eff_loss_ma = document.getElementById('eff_loss_ma');
-            var line_length_unstr = document.getElementById('line_length_unstr');
-            var min_pulley_throw = document.getElementById('min_pulley_throw');
-            var min_pulley_length = document.getElementById('min_pulley_length');
-            var pull_force_simple_ma = document.getElementById('pull_force_simple_ma');
-            var pull_force_mult_ma = document.getElementById('pull_force_mult_ma');
+            var line_tension            = document.getElementById('line_tension');
+            var line_stretch_percent    = document.getElementById('line_stretch_percent');
+            var line_stretch_length     = document.getElementById('line_stretch_length');
+            var mech_adv_eff            = document.getElementById('mech_adv_eff');
+            var theoretical_ma          = document.getElementById('theoretical_ma');
+            var eff_loss_ma             = document.getElementById('eff_loss_ma');
+            var line_length_unstr       = document.getElementById('line_length_unstr');
+            var min_pulley_throw        = document.getElementById('min_pulley_throw');
+            var min_pulley_length       = document.getElementById('min_pulley_length');
+            var pull_force_simple_ma    = document.getElementById('pull_force_simple_ma');
+            var pull_force_mult_ma      = document.getElementById('pull_force_mult_ma');
 
-           // this is a hidden formula found in cell B24, I'm not sure what it represents
+            // this is a hidden formula found in cell B24, I'm not sure what it represents
             var mystery_value = Math.pow(Math.pow(line_length/2, 2) + Math.pow(sag, 2), 0.5);
             // this is a hidden formula found in cell A24, most likely a convenience variable 
             var half_length = line_length / 2;
@@ -111,104 +118,156 @@
 
 <body>
 
-<h1>Slackline Load Calculator</h1>
+  <h1>Slackline Load Calculator <sup>beta</a></h1>
 <div class="container">
-<div class="container-wrapper">
-<form class="form-horizontal">
-  <div class="form-group">
-      <label for="line_length" class="col-sm-2 control-label">Length</label>
-      <div class="col-sm-10">
-       <input type="text" name="line_length" id="line_length" value="100" data-cip-id="line_length">
-       <p class="help-block">Length of your slack/long/highline, either meters or feet</p>
+    <div class="well">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="line_length" class="col-sm-3 control-label">Length</label>
+                <div class="col-sm-9">
+                    <input type="text" name="line_length" id="line_length" value="50" data-cip-id="line_length" class="form-control">
+                    <p class="help-block small"><span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span> Length of your line (meter or feet)</p>
+                </div>
+            </div>
+            <div class="form-group">  
+                <label for="sag" class="col-sm-3 control-label">Sag</label> 
+                <div class="col-sm-9">
+                    <input type="text" name="sag" id="sag" value="2" data-cip-id="sag" class="form-control">
+                    <p class="help-block small"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Total height of drop in middle of slackline with slacker (meter or feet)</p>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label for="slacker_weight" class="col-sm-3 control-label">Slacker Weight</label>
+                <div class="col-sm-9">
+                    <input type="text" name="slacker_weight" id="slacker_weight" value="70" data-cip-id="slacker_weight" class="form-control">
+                    <p class="help-block small"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Weight of slacker (kg or lbs)</p>
+                </div>
+        </div>
+            <div class="form-group">    
+                <label for="pulley_sheaves" class="col-sm-3 control-label"># of Pulley Sheaves</label> 
+                <div class="col-sm-9">
+                    <input type="text" name="pulley_sheaves" id="pulley_sheaves" value="0" data-cip-id="pulley_sheaves" class="form-control">
+                    <p class="help-block small"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> For use with rope multiplier system</p>
+                </div>
+            </div>
+            <div class="form-group">        
+                <label for="pulley_efficiency" class="col-sm-3 control-label">Estimated Pulley Efficiency</label>
+                <div class="col-sm-9">
+                    <input type="text" name="pulley_efficiency" id="pulley_efficiency" value="95" data-cip-id="pulley_efficiency" class="form-control">
+                    <p class="help-block">Estimated:  3" ball bearing=95%, 1.5" bushing=75%</p>
+                </div>
+            </div>
+            <div class="form-group">        
+                <label for="brake_efficiency" class="col-sm-3 control-label">Estimated Brake Efficiency</label> 
+                <div class="col-sm-9">
+                    <input type="text" name="brake_efficiency" id="brake_efficiency" value="70" data-cip-id="brake_efficiency"i class="form-control">
+                    <p class="help-block small">I'D, GriGri, Eddy or whatever.  Should be ~60-75%      MPD=~95%</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="line_stretch" class="col-sm-3 control-label">Line Stretch at Tension</label>
+                <div class="col-sm-9">
+                    <input type="text" name="line_stretch" id="line_stretch" value="4" data-cip-id="line_stretch" class="form-control">
+                    <p class="help-block small">Should be 4-25%, unless using Spider Silk</p>
+                </div>
+            </div>  
+        </form>
+    </div> <!--/container-wrapper-->
+</div> <!--/container-->
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="container small">
+            <div class="well">
+                <span id="line_tension" class="col-sm-1"></span>
+                <label>Line Tension</label>
+                <div class="pull-right" data-toggle="tooltip" data-original-title="Static force with non-moving slacker in middle of line (kg or lbs, whichever you used for slacker weight).">
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="well">
+                <div>
+                    <span id="pull_force_simple_ma" class="col-sm-1"></span>
+                    <label>Pull Force Simple MA</label>
+                    <div class="pull-right" data-toggle="tooltip" data-original-title="Force required to tension system (at brake)">
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div>
+                    <span id="pull_force_mult_ma" class="col-sm-1"></span>
+                    <label>Pull Force Multiplied MA</label>
+                    <div class="pull-right" data-toggle="tooltip" data-original-title="Force required to tension system (multiplied 3:1 after brake)">
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="well">
+                <div>
+                    <span id="line_stretch_percent" class="col-sm-1"></span>
+                    <label>Line Stretch w/ Slacker (%)</label>
+                    <div class="pull-right" data-toggle="tooltip" data-original-title="Stretch of slackline with slacker %">
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div>
+                    <span id="line_stretch_length" class="col-sm-1">&nbsp;</span>
+                    <label>Line Stretch w/ Slacker (Length)</label>
+                    <div class="pull-right" data-toggle="tooltip" data-original-title="Stretch of slackline with slacker length">
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="well">
+                <div>
+                    <span id="mech_adv_eff" class="col-sm-1"></span>
+                    <label>Mechanical Advantage Efficiency</label>
+                    <div class="pull-right" data-toggle="tooltip" data-original-title="Efficiency of pulley system with brake">
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div>
+                    <span id="theoretical_ma" class="col-sm-1"></span>
+                    <label>Theoretical MA</label>
+                    <div class="pull-right" data-toggle="tooltip" data-original-title="Highest possible mechanical advantage with systeme">
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div>
+                    <span id="eff_loss_ma" class="col-sm-1"></span>
+                    <label>Efficiency Loss MA</label>
+                    <div class="pull-right" data-toggle="tooltip" data-original-title="Actual mechanical advantage with pulley system and brake loss">
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="well">
+                <div>
+                    <span id="line_length_unstr" class="col-sm-1"></span>
+                    <label>Line Length (un-stretched)</label>
+                    <div class="pull-right" data-toggle="tooltip" data-original-title="Minimum length of slackline required for final (stretched) length">
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div>
+                    <span id="min_pulley_throw" class="col-sm-1"></span>
+                    <label>Minimum Pulley Throw (length)</label>
+                    <div class="pull-right" data-toggle="tooltip" data-original-title="Minimum amount of pulley length required to tension line to desired length">
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div>
+                    <span id="min_pulley_length" class="col-sm-1"></span>
+                    <label>Minimum Pulley Rope Length</label>
+                    <div class="pull-right" data-toggle="tooltip" data-original-title="Minimum length of static rope required for desired tension/length">
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="form-group">  
-      <label for="sag" class="col-sm-2 control-label">Sag</label> 
-      <div class="col-sm-10">
-      <input type="text" name="sag" id="sag" value="2" data-cip-id="sag">
-      <p class="help-block">Total height of drop in middle of slackline with slacker, same units as above</p>
-  </div>
-  </div>
-  <div class="form-group">    
-      <label for="slacker_weight" class="col-sm-2 control-label">Slacker Weight</label>
-      <div class="col-sm-10">
-      <input type="text" name="slacker_weight" id="slacker_weight" value="80" data-cip-id="slacker_weight">
-      <p class="help-block">Weight of slacker, either lbs or kg (both work)</p>
-  </div>
-  </div>
-  <div class="form-group">    
-      <label for="pulley_sheaves" class="col-sm-2 control-label"># of Pulley Sheaves</label> 
-      <div class="col-sm-10">
-      <input type="text" name="pulley_sheaves" id="pulley_sheaves" value="0" data-cip-id="pulley_sheaves">
-      <p class="help-block">For use with rope multiplier system</p>
-  </div>
-  </div>
-  <div class="form-group">        
-      <label for="pulley_efficiency" class="col-sm-2 control-label">Estimated Pulley Efficiency</label>
-      <div class="col-sm-10">
-      <input type="text" name="pulley_efficiency" id="pulley_efficiency" value="95" data-cip-id="pulley_efficiency">
-    <p class="help-block">Estimated:  3" ball bearing=95%, 1.5" bushing=75%</p>
-  </div>
-</div>
-  <div class="form-group">        
-      <label for="brake_efficiency" class="col-sm-2 control-label">Estimated Brake Efficiency</label> 
-      <div class="col-sm-10">
-      <input type="text" name="brake_efficiency" id="brake_efficiency" value="70" data-cip-id="brake_efficiency">
-      <p class="help-block">>I'D, GriGri, Eddy or whatever.  Should be ~60-75%      MPD=~95%</p>
-  </div>
-  </div>
-  <div class="form-group">
-    <label for="line_stretch" class="col-sm-2 control-label">Line Stretch at Tension</label>
-    <div class="col-sm-10">
-     <input type="text" name="line_stretch" id="line_stretch" value="12" data-cip-id="line_stretch">
-     <p class="help-block">Should be 4-25%, unless using Spider Silk</p>
-    <div>
-
- </div>  
-
-</form>
-</div>
 </div>
 
-<div class="form-body results">
-    <dl>
-        <dt>Line Tension</dt>
-        <dd><span id="line_tension">&nbsp;</span></dd>
-        <p>Static force with non-moving slacker in middle of line (lbs or kg, whichever you used for slacker weight)</p>
-        <dt>Line Stretch w/ Slacker (%)</dt>
-        <dd><span id="line_stretch_percent">&nbsp;</span></dd>
-        <p>Stretch of slackline with slacker %</p>
-        <dt>Line Stretch w/ Slacker (Length)</dt>
-        <dd><span id="line_stretch_length">&nbsp;</span></dd>
-        <p>Stretch of slackline with slacker length</p>
-        <dt>Mechanical Advantage Efficiency</dt>
-        <dd><span id="mech_adv_eff">&nbsp;</span></dd>
-        <p>Efficiency of pulley system with brake</p>
-        <dt>Theoretical MA</dt>
-        <dd><span id="theoretical_ma">&nbsp;</span></dd>
-        <p>Highest possible mechanical advantage with system</p>
-        <dt>Efficiency Loss MA</dt>
-        <dd><span id="eff_loss_ma">&nbsp;</span></dd>
-        <p>Actual mechanical advantage with pulley system and brake loss</p>
-        <dt>Line Length (un-stretched)</dt>
-        <dd><span id="line_length_unstr">&nbsp;</span></dd>
-        <p>Minimum length of slackline required for final (stretched) length</p>
-        <dt>Minimum Pulley Throw (length)</dt>
-        <dd><span id="min_pulley_throw">&nbsp;</span></dd>
-        <p>Minimum amount of pulley length required to tension line to desired length</p>
-        <dt>Minimum Pulley Rope Length</dt>
-        <dd><span id="min_pulley_length">&nbsp;</span></dd>
-        <p>Minimum length of static rope required for desired tension/length</p>
-        <dt>Pull Force Simple MA</dt>
-        <dd><span id="pull_force_simple_ma">&nbsp;</span></dd>
-        <p>Force required to tension system (at brake)</p>
-        <dt>Pull Force Multiplied MA</dt>
-        <dd><span id="pull_force_mult_ma">&nbsp;</span></dd>
-        <p>Force required to tension system (multiplied 3:1 after brake)</p>
-    </dl>
-</div>
-
-<a href="https://github.com/sophistihip/slackline-load-calc"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+<a href="https://github.com/sophistihip/slackline-load-calc"><img src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
 </body>
 
